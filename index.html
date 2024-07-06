@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>המרת טקסט מערבית לעברית</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            direction: rtl;
+            text-align: right;
+        }
+        .container {
+            width: 60%;
+            margin: auto;
+        }
+        textarea, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>המרת טקסט מערבית לעברית</h1>
+        <textarea id="arabicInput" rows="10" placeholder="הכנס טקסט בערבית כאן"></textarea>
+        <button onclick="transliterate()">המר</button>
+        <textarea id="hebrewOutput" rows="10" readonly placeholder="תוצאה בעברית תוצג כאן"></textarea>
+    </div>
+
+    <script>
+        const arabicToHebrew = {
+            'ء': 'א', 'ب': 'בּ', 'ت': 'ת', 'ث': 'ת\'', 'ج': 'ג\'', 'ح': 'ח',
+            'خ': 'ח\'', 'د': 'ד', 'ذ': 'ד\'', 'ر': 'ר', 'ز': 'ז', 'س': 'ס',
+            'ش': 'ש', 'ص': 'צ', 'ض': 'צ\'', 'ط': 'ט', 'ظ': 'ט\'', 'ع': 'ע',
+            'غ': 'ע\'', 'ف': 'פ', 'ق': 'ק', 'ك': 'כּ', 'ل': 'ל', 'م': 'מ',
+            'ن': 'נ', 'ه': 'ה', 'و': 'ו', 'ي': 'י', 'ى': 'א', 'آ': 'אַא',
+            'ة': 'ה', 'إ': 'א', 'أ': 'א', 'ؤ': 'ו', 'ئ': 'י', 'ى': 'א'
+        };
+
+        const arabicVowelsToHebrew = {
+            'َ': 'ַ', 'ِ': 'ִ', 'ُ': 'ֻ', 'ْ': '', 'ّ': '', 'ً': 'ً', 'ٌ': 'ٌ', 'ٍ': 'ٍ',
+            'ا': 'א', 'و': 'אוּ', 'ي': 'אִי', 'َا': 'אַא', 'ِي': 'אִי', 'ُو': 'אוּ'
+        };
+
+        function transliterate() {
+            const input = document.getElementById('arabicInput').value;
+            let output = '';
+            for (let i = 0; i < input.length; i++) {
+                const char = input[i];
+                if (arabicToHebrew[char]) {
+                    output += arabicToHebrew[char];
+                } else if (arabicVowelsToHebrew[char]) {
+                    output += arabicVowelsToHebrew[char];
+                } else {
+                    output += char;
+                }
+            }
+            document.getElementById('hebrewOutput').value = output;
+        }
+    </script>
+</body>
+</html>
